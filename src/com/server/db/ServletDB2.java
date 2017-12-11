@@ -28,8 +28,10 @@ public class ServletDB2 extends HttpServlet {
         {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:C:\\sqlite\\dtclass.db");
-            String sql = "select * from tbl_Login where name='"+ name +"' and password='"+ pwd +"'";
+            String sql = "select * from tbl_Login where name=? and password=?";
             stmt = conn.prepareStatement(sql);
+            stmt.setString(1, name);
+            stmt.setString(2, pwd);
             ResultSet rs = stmt.executeQuery();
             if(rs.next())
             {
